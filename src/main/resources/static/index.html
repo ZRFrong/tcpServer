@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        select {
+            border: none;
+            background: antiquewhite;
+            border-radius: 100px;
+            width: 800px;
+            height: 200px;
+            text-align: center;
+            font-size: 60px;
+        }
+
+        .black {
+            font-size: 60px;
+        }
+
+        .input {
+            width: 500px;
+            height: 200px;
+            border-radius: 100px;
+        }
+
+        .button {
+            width: 500px;
+            height: 200px;
+            border-radius: 100px;
+        }
+    </style>
+</head>
+<body>
+<!--定义表单 form-->
+<form action="/tcp/tcpOrder/query2" method="post" target="nm_iframe">
+    <table border="1" align="center" width="1000">
+        <select name="address" id="characters">
+            <!--<option value="address" class="black" name="address">black</option>-->
+        </select>
+        <input type="text" name="text" class="input">
+        <input type="submit" value="发送"></td>
+    </table>
+</form>
+ <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+<script type="text/javascript" src="min.js">
+    <script language="JavaScript">
+        function myrefresh()
+        {
+            window.location.reload();
+        }
+    setTimeout('myrefresh()',1000); //指定1秒刷新一次
+</script>
+    <script>
+    $(function () {
+        $.post("/tcp/tcpClient/accept", "", function (ret) {
+            // console.log(ret);
+            if(ret != null){
+                $("#characters").html("");
+                for (i = 0;i< ret.length;i ++){
+                    console.log(ret[i].address)
+                    $("#characters").append("<option value="+ret[i].address+">"+ret[i].address+"</option>");
+                }
+            }
+        })
+    })
+
+</script>
+</body>
+</html>
